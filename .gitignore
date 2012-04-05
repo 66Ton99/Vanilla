@@ -1,4 +1,7 @@
+/cache/*
 /cache/*/
+/cache/*/*
+/cache/*/*/*
 /cache/*.ini
 /cache/*.php
 *vanillaforums*
