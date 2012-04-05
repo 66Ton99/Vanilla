@@ -15,5 +15,9 @@
 *.kpf
 .DS_Store
 Thumbs.db
+.settings
+.buildpath
+.project
+/*.log
 *.swp
 _notes

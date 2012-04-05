@@ -1,0 +1,6 @@
+[submodule "plugins/jsConnect"]
+	path = plugins/jsConnect
+	url = git@github.com:66Ton99/jsConnect.git
+[submodule "plugins/jsconnect"]
+	path = plugins/jsconnect
+	url = git@github.com:66Ton99/jsConnect.git
