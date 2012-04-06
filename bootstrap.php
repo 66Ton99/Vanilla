@@ -1,7 +1,7 @@
 <?php if (!defined('APPLICATION')) exit();
 // Include a user-defined bootstrap.
 if (file_exists(PATH_ROOT.'/conf/bootstrap.before.php'))
-	require_once(PATH_ROOT.'/conf/bootstrap.before.php');
+   require_once(PATH_ROOT.'/conf/bootstrap.before.php');
 
 if (!defined('PATH_LOCAL_ROOT')) define('PATH_LOCAL_ROOT', PATH_ROOT);
 
@@ -12,7 +12,7 @@ if(!defined('PATH_LOCAL_CONF')) define('PATH_LOCAL_CONF', PATH_CONF);
 // Include default constants if none were defined elsewhere
 if (!defined('VANILLA_CONSTANTS'))
    include(PATH_CONF.'/constants.php');
-   
+
 if (!defined('PATH_APPLICATIONS')) define('PATH_APPLICATIONS', PATH_ROOT.'/applications');
 if (!defined('PATH_LOCAL_APPLICATIONS')) define('PATH_LOCAL_APPLICATIONS', PATH_APPLICATIONS);
 
@@ -55,12 +55,17 @@ Gdn::Config()->Load(PATH_CONF.'/config-defaults.php', 'Use');
 // Load installation-specific static configuration so that we know what apps are enabled.
 Gdn::Config()->Load(PATH_CONF.'/config.php', 'Use');
 
+if (Gdn::Config('EnabledPlugins.ErrorCatcher')) { // It can be removed if you don't want to turn off this plugin from the admin panel
+    require_once dirname(__FILE__) . '/plugins/ErrorCatcher/lib/class.errorcatcherplugin.php';
+    ErrorCatcherPlugin::init(Gdn::Config('Plugins.ErrorCatcher'));
+}
+
 Gdn::Config()->Caching(TRUE);
 
 Debug(C('Debug', FALSE));
 
 if (PATH_LOCAL_CONF != PATH_CONF) {
-   // Load the custom configurations 
+   // Load the custom configurations
    Gdn::Config()->Load(PATH_LOCAL_CONF.'/config.php', 'Use');
 }
 
@@ -81,7 +86,7 @@ Gdn::FactoryInstall(Gdn::AliasPluginManager, 'Gdn_PluginManager');
 // Load the configurations for the installed items.
 $Gdn_EnabledApplications = Gdn::Config('EnabledApplications', array());
 foreach ($Gdn_EnabledApplications as $ApplicationName => $ApplicationFolder) {
-	Gdn::Config()->Load(PATH_APPLICATIONS."/{$ApplicationFolder}/settings/configuration.php", 'Use');
+   Gdn::Config()->Load(PATH_APPLICATIONS."/{$ApplicationFolder}/settings/configuration.php", 'Use');
 }
 
 // Load the custom configurations again so that application setting defaults are overridden.
@@ -131,15 +136,15 @@ Gdn::FactoryInstall('Dummy', 'Gdn_Dummy');
 
 // Execute other application startup.
 foreach ($Gdn_EnabledApplications as $ApplicationName => $ApplicationFolder) {
-	// Include the application's bootstrap.
-	$Gdn_Path = PATH_APPLICATIONS."/{$ApplicationFolder}/settings/bootstrap.php";
-	if (file_exists($Gdn_Path))
-		include_once($Gdn_Path);
-		
-	// Include the application's hooks.
-	$Hooks_Path = PATH_APPLICATIONS."/{$ApplicationFolder}/settings/class.hooks.php";
+   // Include the application's bootstrap.
+   $Gdn_Path = PATH_APPLICATIONS."/{$ApplicationFolder}/settings/bootstrap.php";
+   if (file_exists($Gdn_Path))
+      include_once($Gdn_Path);
+
+   // Include the application's hooks.
+   $Hooks_Path = PATH_APPLICATIONS."/{$ApplicationFolder}/settings/class.hooks.php";
    if (file_exists($Hooks_Path))
-		include_once($Hooks_Path);
+      include_once($Hooks_Path);
 }
 
 unset($Gdn_EnabledApplications);
@@ -153,13 +158,13 @@ Gdn::PluginManager()->Start();
 Gdn_Autoloader::Attach(Gdn_Autoloader::CONTEXT_PLUGIN);
 
 //if (!Gdn::FactoryExists(Gdn::AliasLocale)) {
-	$Codeset = Gdn::Config('Garden.LocaleCodeset', 'UTF8');
-	$CurrentLocale = Gdn::Config('Garden.Locale', 'en-CA');
-	$SetLocale = str_replace('-', '_', $CurrentLocale).'.'.$Codeset;
-	setlocale(LC_ALL, $SetLocale);
-	$Gdn_Locale = new Gdn_Locale($CurrentLocale, Gdn::ApplicationManager()->EnabledApplicationFolders(), Gdn::PluginManager()->EnabledPluginFolders());
-	Gdn::FactoryInstall(Gdn::AliasLocale, 'Gdn_Locale', NULL, Gdn::FactorySingleton, $Gdn_Locale);
-	unset($Gdn_Locale);
+   $Codeset = Gdn::Config('Garden.LocaleCodeset', 'UTF8');
+   $CurrentLocale = Gdn::Config('Garden.Locale', 'en-CA');
+   $SetLocale = str_replace('-', '_', $CurrentLocale).'.'.$Codeset;
+   setlocale(LC_ALL, $SetLocale);
+   $Gdn_Locale = new Gdn_Locale($CurrentLocale, Gdn::ApplicationManager()->EnabledApplicationFolders(), Gdn::PluginManager()->EnabledPluginFolders());
+   Gdn::FactoryInstall(Gdn::AliasLocale, 'Gdn_Locale', NULL, Gdn::FactorySingleton, $Gdn_Locale);
+   unset($Gdn_Locale);
 //}
 
 require_once(PATH_LIBRARY_CORE.'/functions.validation.php');
@@ -169,7 +174,7 @@ Gdn::Authenticator()->StartAuthenticator();
 
 // Include a user-defined bootstrap.
 if (file_exists(PATH_ROOT.'/conf/bootstrap.after.php'))
-	require_once(PATH_ROOT.'/conf/bootstrap.after.php');
-	
+   require_once(PATH_ROOT.'/conf/bootstrap.after.php');
+
 // Include "Render" functions now - this way pluggables and custom confs can override them.
 require_once(PATH_LIBRARY_CORE.'/functions.render.php');

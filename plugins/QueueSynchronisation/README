@@ -1,0 +1,3 @@
+Queue Synchronisation
+
+Synchronizes users by message bus through Zend_Queue wapper

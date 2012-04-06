@@ -4,3 +4,12 @@
 [submodule "plugins/jsconnect"]
 	path = plugins/jsconnect
 	url = git@github.com:66Ton99/jsConnect.git
+[submodule "plugins/ReplyTo"]
+	path = plugins/ReplyTo
+	url = git@github.com:66Ton99/Vanilla-ReplyTo-Plugin.git
+[submodule "plugins/ErrorCatcher"]
+	path = plugins/ErrorCatcher
+	url = git@github.com:66Ton99/Vanilla-ErrorCatcher-Plugin.git
+[submodule "plugins/QueueSynchronisation/lib/vendor/fpMq"]
+	path = plugins/QueueSynchronisation/lib/vendor/fpMq
+	url = git@github.com:66Ton99/fpMqPlugin.git
