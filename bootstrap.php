@@ -56,8 +56,8 @@ Gdn::Config()->Load(PATH_CONF.'/config-defaults.php', 'Use');
 Gdn::Config()->Load(PATH_CONF.'/config.php', 'Use');
 
 if (Gdn::Config('EnabledPlugins.ErrorCatcher')) { // It can be removed if you don't want to turn off this plugin from the admin panel
-    require_once dirname(__FILE__) . '/plugins/ErrorCatcher/lib/class.errorcatcherplugin.php';
-    ErrorCatcherPlugin::init(Gdn::Config('Plugins.ErrorCatcher'));
+    require_once dirname(__FILE__) . '/plugins/ErrorCatcher/lib/class.errorcatcher.php';
+    ErrorCatcher::init(Gdn::Config('Plugins.ErrorCatcher'));
 }
 
 Gdn::Config()->Caching(TRUE);
