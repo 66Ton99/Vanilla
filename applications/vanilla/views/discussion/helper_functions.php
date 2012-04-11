@@ -39,6 +39,7 @@ function WriteComment($Object, $Sender, $Session, $CurrentOffset) {
    $Alt = !$Alt;
 	
 	
+   $Sender->CssClassComment =& $CssClass;
    $Sender->FireEvent('BeforeCommentDisplay');
 ?>
 <li class="<?php echo $CssClass; ?>" id="<?php echo $Id; ?>">
