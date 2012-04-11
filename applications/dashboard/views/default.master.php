@@ -3,12 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-ca">
 <head>
    <?php $this->RenderAsset('Head'); ?>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css' />
+<?php $HeadString .='
+              <!--[if lte IE 8]><link rel="stylesheet" href="'.$this->Context->
+StyleUrl.'ie8.css" type="text/css" media="screen" /><![endif]-->';
+
+$HeadString .= ' <link rel="stylesheet" type="text/css" href="'.$StyleSheet['Sheet'].'"'.($StyleSheet['Media'] == ''?'':' media="'.$StyleSheet['Media'].'"').' /> <!--[if IE]> <link rel="stylesheet" href="ie.css" type="text/css" media="screen" /> <![endif]-->';
+echo $HeadString;
+	  ?>
+      
+
 </head>
 <body id="<?php echo $BodyIdentifier; ?>" class="<?php echo $this->CssClass; ?>">
-   <div id="Frame">
-      <div id="Head">
+<div class="Wrapper">
+  <div class="MainContainer">
+    <div id="Frame" class="MainFrame">
+
+       <div id="Head">
          <div class="Menu">
-            <h1><a class="Title" href="<?php echo Url('/'); ?>"><span><?php echo Gdn_Theme::Logo(); ?></span></a></h1>
+           <div class="TopControl">
+            <!--<h1><a class="Title" href="<?php echo Url('/'); ?>"><span><?php echo Gdn_Theme::Logo(); ?></span></a></h1>--> 
             <?php
 			      $Session = Gdn::Session();
 					if ($this->Menu) {
@@ -26,7 +40,7 @@
                      else
                         $ProfileSlug = $Session->UserID.'/'.urlencode($Session->User->Name);
 							$this->Menu->AddLink('User', $Name, '/profile/'.$ProfileSlug, array('Garden.SignIn.Allow'), array('class' => 'UserNotifications'));
-							$this->Menu->AddLink('SignOut', T('Sign Out'), SignOutUrl(), FALSE, array('class' => 'NonTab SignOut'));
+							$this->Menu->AddLink('SignOut', T('Sign Out'), SignOutUrl(), FALSE, array('class' => 'NonTab signout_icon SignOut'));
 						} else {
 							$Attribs = array();
 							if (SignInPopup() && strpos(Gdn::Request()->Url(), 'entry') === FALSE)
@@ -43,22 +57,27 @@
 					echo 
 						$Form->Open(array('action' => Url('/search'), 'method' => 'get')),
 						$Form->TextBox('Search'),
-						$Form->Button('Go', array('Name' => '')),
+						$Form->Button('Search Forum', array('Name' => '')),
 						$Form->Close();
 				?></div>
+           </div>
          </div>
       </div>
-      <div id="Body">
+       <div id="Body">
          <div id="Content"><?php $this->RenderAsset('Content'); ?></div>
          <div id="Panel"><?php $this->RenderAsset('Panel'); ?></div>
       </div>
-      <div id="Foot">
+       <div id="Foot">
 			<?php
-				$this->RenderAsset('Foot');
-				echo Wrap(Anchor(T('Powered by Vanilla'), C('Garden.VanillaUrl')), 'div');
+				//$this->RenderAsset('Foot');
+				//echo Wrap(Anchor(T('Powered by MadebyAtheists'), C('Garden.VanillaUrl')), 'div');
+				
+				//echo '<div><a href="#" >Powered by MadebyAtheists</a></div>'; // This line is added by Shakti and Skant on 09-04-2012
 			?>
 		</div>
+    </div>   
    </div>
 	<?php $this->FireEvent('AfterBody'); ?>
+</div>    
 </body>
 </html>
