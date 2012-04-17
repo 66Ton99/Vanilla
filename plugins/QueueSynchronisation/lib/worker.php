@@ -2,11 +2,10 @@
 
 // Run in background:
 // nohup php workerExample.php > /dev/null &
-use Behat\Mink\Exception\Exception;
 
 define('APPLICATION', true);
 define('DEBUG', true);
-require_once __DIR__ . '/vendor/fpMq/lib/autoload.php';
+require_once __DIR__ . '/vendor/fpMq/autoload.php';
 require_once __DIR__ . '/class.userconvector.php';
 
 class Worker
@@ -27,8 +26,7 @@ class Worker
          fpMqQueue::init(
             $this->getConfigs('Plugins.QueueSynchronisation.Options'),
             $this->getConfigs('Plugins.QueueSynchronisation.AmazonUrl')
-         ),
-         'dev' // FIXME check environment
+         )
       );
       $this->worker->run();
    }
